@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %} Accounts {% endblock %}
+
+{% block main %}
+<table class="table-default">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Account Name</th>
+            <th>Owner</th>
+            <th>Bank</th>
+            <th>Amount</th>
+            <th>Source/Destination</th>
+            <th>Description</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.date }}</td>
+                <td>{{ transaction.account_name }}</td>
+                <td>{{ transaction.owner }}</td>
+                <td>{{ transaction.bank_name }}</td>
+                <td>{{ transaction.amount | cash }}</td>
+                <td>{{ transaction.target }}</td>
+                <td>{{ transaction.description }}</td>
+                <td>
+                    <form action="{{ url_for('edit_transaction', transaction_id=transaction.id) }}", method="get">
+                        <input type="submit" value="Edit">
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ url_for('delete_transaction', transaction_id=transaction.id) }}", method="post">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div>
+    <a href="{{ url_for('create_transaction', type='income') }}"><input type="button" value="Income"></a>
+    <a href="{{ url_for('create_transaction', type='expense') }}"><input type="button" value="Expense"></a>
+    <a href="{{ url_for('create_transaction', type='transfer') }}"><input type="button" value="Transfer"></a>
+</div>
+{% endblock %}
+
+<!-- <form action="{{ url_for('delete_account', account_id=account.id) }}", method="post">
+    <input type="submit" value="Delete">
+</form> -->

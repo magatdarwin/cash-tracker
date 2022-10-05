@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %} Create Account {% endblock %}
+
+{% block main %} 
+<form action="/create_account" method="post">
+    <div class="form-input"><input type="text" name="name" id="name" placeholder="Enter Account Name"></div>
+    <div class="form-input"><input type="text" name="maintain" id="maintain" placeholder="Enter Maintain Amount (Optional)"></div>
+    <div class="form-input">
+        <select name="bank" id="bank">
+            <option value="-1" disabled selected>Select Bank</option>
+            {% for bank in banks %}
+            <option value="{{ bank.id }}">{{ bank.name }} ({{ bank.account_number }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-input">
+        <select name="owner" id="owner">
+            <option value="-1" disabled selected>Select Owner</option>
+            {% for owner in owners %}
+            <option value="{{ owner.id }}">{{ owner.first_name }} {{ owner.last_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-input"><input type="submit" value="Create"></div>
+</form>
+<div class="form-input"><a href="/view_accounts"><input type="button" value="Cancel"></a></div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %} Edit Bank {% endblock %}
+
+{% block main %}
+<form action="{{ url_for('edit_bank', bank_id=bank.id) }}", method="post">
+    <div class="form-input">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="{{ bank.name }}">
+    </div>
+    <div class="form-input">
+        <label for="account_number">Account Number</label>
+        <input type="text" name="account_number" id="account_number" value="{{ bank.account_number }}">
+    </div>
+    <div class="form-input"><input type="submit" value="Save"></div>
+</form>
+<div class="form-input"><a href="/view_banks"><input type="button" value="Cancel"></a></div>
+{% endblock %}

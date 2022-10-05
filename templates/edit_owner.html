@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %} Edit Owner {% endblock %}
+
+{% block main %}
+<form action="{{ url_for('edit_owner', owner_id=owner.id) }}", method="post">
+    <div class="form-input">
+        <label for="first_name">First Name</label>
+        <input type="text" name="first_name" id="first_name" value="{{ owner.first_name }}"></div>
+    <div class="form-input">
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name" id="last_name" value="{{ owner.last_name }}">
+    </div>
+    <div class="form-input"><input type="submit" value="Save"></div>
+</form>
+<div class="form-input"><a href="/view_owners"><input type="button" value="Cancel"></a></div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %} Create Bank {% endblock %}
+
+{% block main %} 
+<form action="/create_bank" method="post">
+    <div class="form-input"><input type="text" name="name" id="name" placeholder="Enter Name"></div>
+    <div class="form-input"><input type="text" name="account_number" id="account_number" placeholder="Enter Account Number"></div>
+    <div class="form-input"><input type="submit" value="Create"></div>
+</form>
+<div class="form-input"><a href="/view_banks"><input type="button" value="Cancel"></a></div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %} Create Transaction {% endblock %}
+
+{% block main %} 
+<!-- <form action="/create_transaction" method="post"> -->
+<form action="{{ url_for('create_transaction', type=type) }}" method="post">
+    <div class="form-input">
+        <label for="account">Account</label>
+        <select name="account" id="account">
+            <option value="-1" disabled selected>Select Account</option>
+            {% for account in accounts %}
+            <option value="{{ account.id }}">{{ account.account_name }} ({{ account.bank_name }} - {{ account.owner_name }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-input">
+        <label for="date">Date</label>
+        <input type="date" name="date" id="date">
+    </div>
+    <div class="form-input">
+        <label for="amount">Amount</label>
+        <input type="text" name="amount" id="amount" placeholder="Enter Amount">
+    </div>
+    <div class="form-input">
+        {% if type == 'transfer' %}
+            <label for="target">Transfer To</label>
+            <select name="target" id="target">
+                <option value="-1" disabled selected>Select Account</option>
+                {% for account in accounts %}
+                <option value="{{ account.id }}">{{ account.account_name }} ({{ account.bank_name }} - {{ account.owner_name }})</option>
+                {% endfor %}
+            </select>    
+        {% else %}
+            <label for="target">Source/Destination</label>
+            <input type="text" name="target" id="target" placeholder="Enter Source/Destination">
+        {% endif %}
+    </div>
+    <div class="form-input">
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" placeholder="Enter Description">
+    </div>
+
+    <div class="form-input"><input type="submit" value="Create"></div>
+</form>
+<div class="form-input"><a href="/view_transactions"><input type="button" value="Cancel"></a></div>
+{% endblock %}
+
+<!-- account, date, amount, target, description -->

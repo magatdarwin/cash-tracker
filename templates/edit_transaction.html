@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %} Edit Transaction {% endblock %}
+
+{% block main %}
+<form action="{{ url_for('edit_transaction', transaction_id=transaction.id) }}", method="post">
+    <div class="form-input">
+        <label for="name">Amount</label>
+        <input type="text" name="name" id="name" value="{{ transaction.name }}">
+    </div>
+    <div class="form-input">
+        <label for="maintain">Maintain Amount</label>
+        <input type="text" name="maintain" id="maintain" value="{{ transaction.maintain }}">
+    </div>
+    <div class="form-input">
+        <label for="bank">Bank</label>
+        <select name="bank" id="bank">
+            <option value="{{ transaction.bank_id }}" selected>{{ transaction.bank_name }} ({{ transaction.bank_number }})</option>
+            {% for bank in banks %}
+            <option value="{{ bank.id }}">{{ bank.name }} ({{ bank.transaction_number }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-input">
+        <label for="owner">Owner</label>
+        <select name="owner" id="owner">
+            <option value="{{ transaction.owner_id }}" selected>{{ transaction.owner_name }}</option>
+            {% for owner in owners %}
+            <option value="{{ owner.id }}">{{ owner.first_name }} {{ owner.last_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-input"><input type="submit" value="Save"></div>
+</form>
+<div class="form-input"><a href="/view_transactions"><input type="button" value="Cancel"></a></div>
+{% endblock %}

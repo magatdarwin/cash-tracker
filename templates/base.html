@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Cash Tracker: {% block title %}{% endblock %}</title>
+</head>
+<body>
+    <nav class="topnav">
+        <a class="tab" href="/view_accounts">Accounts</a>
+        <a class="tab" href="/view_transactions">Transactions</a>
+        <div class="topnav-right">
+            <a class="tab" href="/view_banks">Banks</a>
+            <a class="tab" href="/view_owners">Owners</a>
+            <a class="tab" href="#">Profile</a>
+            <a href="/logout">Log Out</a>
+        </div>
+    </nav>
+    <main class="container">
+        {% block main %}{% endblock %}
+    </main>
+
+    <!-- TO-DO: Add script to <a> to change active class
+        Sample: https://css-tricks.com/snippets/javascript/loop-queryselectorall-matches/
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                console.log("forEach worked");
+            });
+        }); 
+    -->
+    <script>
+        const tabs = document.querySelectorAll('.tab')
+
+        tabs.forEach((tab) => {
+            tab.addEventListener('click', function(e){
+                e.target.classList.add('active');
+            }); 
+        })
+        // TO-DO:
+        // The code above only briefly changes the tab color, but is being reset again since
+        // Flask loads a new url/page per clicked tab
+    </script>
+</body>
+</html>

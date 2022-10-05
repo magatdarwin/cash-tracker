@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %} Create Owner {% endblock %}
+
+{% block main %} 
+<form action="/create_owner" method="post">
+    <div class="form-input"><input type="text" name="first_name" id="first_name" placeholder="Enter First Name"></div>
+    <div class="form-input"><input type="text" name="last_name" id="last_name" placeholder="Enter Last Name"></div>
+    <div class="form-input"><input type="submit" value="Create"></div>
+</form>
+<div class="form-input"><a href="/view_owners"><input type="button" value="Cancel"></a></div>
+
+{% endblock %}

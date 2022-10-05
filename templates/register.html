@@ -1,0 +1,12 @@
+{% extends "base_auth.html" %}
+
+{% block title %}Register{% endblock %} 
+
+{% block body %}
+<form action="/register" method="post">
+    <div class="form-input"><input type="text" name="username" id="username" placeholder="Enter Username"></div>
+    <div class="form-input"><input type="password" name="password" id="password" placeholder="Enter Password"></div>
+    <div class="form-input"><input type="password" name="confirmation" id="confirmation" placeholder="Re-enter Password"></div>
+    <div class="form-input"><input type="submit" value="Register"></div>
+</form>
+{% endblock %}

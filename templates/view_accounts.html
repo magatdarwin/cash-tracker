@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %} Accounts {% endblock %}
+
+{% block main %}
+<table class="table-default">
+    <thead>
+        <tr>
+            <th>Account Name</th>
+            <th>Owner</th>
+            <th>Bank</th>
+            <th>Bank Number</th>
+            <th>Actual Balance</th>
+            <th>Maintain Amount</th>
+            <th>Available Balance</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for account in accounts %}
+            <tr>
+                <td>{{ account.account_name }}</td>
+                <td>{{ account.owner_name }}</td>
+                <td>{{ account.bank_name }}</td>
+                <td>{{ account.bank_number }}</td>
+                <td>{{ account.actual_balance | cash }}</td>
+                <td>{{ account.maintain | cash }}</td>
+                <td>{{ account.available_balance | cash }}</td>
+                <td>
+                    <form action="{{ url_for('edit_account', account_id=account.id) }}", method="get">
+                        <input type="submit" value="Edit">
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ url_for('delete_account', account_id=account.id) }}", method="post">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div><a href="/create_account"><input type="button" value="Create Account"></a></div>
+{% endblock %}
