@@ -409,12 +409,48 @@ def view_transactions():
 @login_required
 def edit_transaction(transaction_id):
     if request.method == 'POST':
-        pass
+        account_id = request.form.get('account')
+        date = request.form.get('date')
+        amount = request.form.get('amount')
+        target = request.form.get('target')
+        description = request.form.get('description')
 
-    transaction = cur.execute('SELECT * FROM transactions WHERE id = ?', (transaction_id,)).fetchall()
-    return render_template('edit_transaction.html', transaction=transaction[0])
+        cur.execute("""UPDATE transactions 
+                    SET account_id = ?, date = ?, amount = ?, target = ?, description = ? 
+                    WHERE id = ?""", (account_id, date, amount, target, description, transaction_id))
+        con.commit()
 
-@app.route('/delete_transaction/<int:transaction_id>')
+        return redirect(url_for('view_transactions'))
+
+    transaction = cur.execute("""SELECT t.*, 
+                                  (o.first_name || ' ' || o.last_name) AS owner_name, 
+                                  a.name AS account_name, 
+                                  b.name AS bank_name
+                              FROM transactions AS t 
+                              INNER JOIN accounts AS a ON t.account_id = a.id
+                              INNER JOIN banks AS b ON a.bank_id = b.id
+                              INNER JOIN owners AS o ON a.owner_id = o.id
+                              WHERE t.id = ?""", (transaction_id,)).fetchall()
+
+    accounts = cur.execute("""SELECT a.id, 
+                               (o.first_name || ' ' || o.last_name) AS owner_name, 
+                               a.name AS account_name, 
+                               b.name AS bank_name
+                           FROM accounts AS a 
+                           INNER JOIN banks AS b ON a.bank_id = b.id
+                           INNER JOIN owners AS o ON a.owner_id = o.id
+                           WHERE a.user_id = ?
+                               AND a.id NOT IN (SELECT account_id FROM transactions WHERE id = ?)
+                           GROUP BY a.id
+                           ORDER BY owner_name, account_name""", (session['user_id'], transaction_id)).fetchall()
+
+    return render_template('edit_transaction.html', transaction=transaction[0], accounts=accounts)
+
+@app.route('/delete_transaction/<int:transaction_id>', methods=['POST'])
 @login_required
 def delete_transaction(transaction_id):
-    pass
+    if request.method == 'POST':
+        cur.execute('DELETE FROM transactions WHERE id = ?', (transaction_id,))
+        con.commit()
+
+    return redirect(url_for('view_transactions'))

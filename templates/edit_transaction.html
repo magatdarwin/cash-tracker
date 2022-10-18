@@ -5,30 +5,29 @@
 {% block main %}
 <form action="{{ url_for('edit_transaction', transaction_id=transaction.id) }}", method="post">
     <div class="form-input">
-        <label for="name">Amount</label>
-        <input type="text" name="name" id="name" value="{{ transaction.name }}">
-    </div>
-    <div class="form-input">
-        <label for="maintain">Maintain Amount</label>
-        <input type="text" name="maintain" id="maintain" value="{{ transaction.maintain }}">
-    </div>
-    <div class="form-input">
-        <label for="bank">Bank</label>
-        <select name="bank" id="bank">
-            <option value="{{ transaction.bank_id }}" selected>{{ transaction.bank_name }} ({{ transaction.bank_number }})</option>
-            {% for bank in banks %}
-            <option value="{{ bank.id }}">{{ bank.name }} ({{ bank.transaction_number }})</option>
+        <label for="account">Account</label>
+        <select name="account" id="account">
+            <option value="{{ transaction.account_id }}" selected>{{ transaction.account_name }} ({{transaction.bank_name}} - {{ transaction.owner_name}})</option>
+            {% for account in accounts %}
+            <option value="{{ account.id }}">{{ account.account_name }} ({{ account.bank_name }} - {{ account.owner_name }})</option>
             {% endfor %}
         </select>
     </div>
     <div class="form-input">
-        <label for="owner">Owner</label>
-        <select name="owner" id="owner">
-            <option value="{{ transaction.owner_id }}" selected>{{ transaction.owner_name }}</option>
-            {% for owner in owners %}
-            <option value="{{ owner.id }}">{{ owner.first_name }} {{ owner.last_name }}</option>
-            {% endfor %}
-        </select>
+        <label for="date">Date</label>
+        <input type="date" name="date" id="date" value="{{ transaction.date }}">
+    </div>
+    <div class="form-input">
+        <label for="amount">Amount</label>
+        <input type="text" name="amount" id="amount" value="{{ transaction.amount }}">
+    </div>
+    <div class="form-input">
+        <label for="target">Source/Destination</label>
+        <input type="text" name="target" id="target" value="{{ transaction.target }}">
+    </div>
+    <div class="form-input">
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" value="{{ transaction.description }}">
     </div>
 
     <div class="form-input"><input type="submit" value="Save"></div>

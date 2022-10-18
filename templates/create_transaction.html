@@ -31,9 +31,12 @@
                 <option value="{{ account.id }}">{{ account.account_name }} ({{ account.bank_name }} - {{ account.owner_name }})</option>
                 {% endfor %}
             </select>    
+        {% elif type == 'income' %}
+            <label for="target">Source</label>
+            <input type="text" name="target" id="target" placeholder="Enter Source">
         {% else %}
-            <label for="target">Source/Destination</label>
-            <input type="text" name="target" id="target" placeholder="Enter Source/Destination">
+            <label for="target">Destination</label>
+            <input type="text" name="target" id="target" placeholder="Enter Destination">
         {% endif %}
     </div>
     <div class="form-input">
