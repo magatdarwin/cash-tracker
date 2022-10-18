@@ -4,9 +4,21 @@
 
 {% block body %}
 <form action="/register" method="post">
-    <div class="form-input"><input type="text" name="username" id="username" placeholder="Enter Username"></div>
-    <div class="form-input"><input type="password" name="password" id="password" placeholder="Enter Password"></div>
-    <div class="form-input"><input type="password" name="confirmation" id="confirmation" placeholder="Re-enter Password"></div>
-    <div class="form-input"><input type="submit" value="Register"></div>
+    <h1 class="h3 mb-3 fw-normal">Create an Account</h1>
+    <div class="form-floating">
+        <input class="form-control" type="text" name="username" id="username" placeholder="Username">
+        <label for="username">Username</label>
+    </div>
+    <div class="form-floating">
+        <input class="form-control" type="password" name="password" id="password" placeholder="Password">
+        <label for="password">Password</label>
+    </div>
+    <div class="form-floating">
+        <input class="form-control" type="password" name="confirmation" id="confirmation" placeholder="Re-enter Password">
+        <label for="confirmation">Re-enter Password</label>
+    </div>
+    <div class="form-floating">
+        <input class="w-100 btn btn-lg btn-primary" type="submit" value="Register">
+    </div>
 </form>
 {% endblock %}
