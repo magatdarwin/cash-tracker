@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
@@ -17,14 +19,15 @@
         <div class="topnav-right">
             <a class="tab" href="/view_banks">Banks</a>
             <a class="tab" href="/view_owners">Owners</a>
-            <a class="tab" href="#">Profile</a>
+            <!-- <a class="tab" href="#">Profile</a> -->
             <a href="/logout">Log Out</a>
         </div>
     </nav>
-    <main class="container">
-        {% block main %}{% endblock %}
-    </main>
-
+    <div class="container">
+        <main>            
+            {% block main %}{% endblock %}
+        </main>
+    </div>
     <!-- TO-DO: Add script to <a> to change active class
         Sample: https://css-tricks.com/snippets/javascript/loop-queryselectorall-matches/
         buttons.forEach((button) => {
@@ -33,6 +36,7 @@
             });
         }); 
     -->
+    <!-- 
     <script>
         const tabs = document.querySelectorAll('.tab')
 
@@ -45,5 +49,7 @@
         // The code above only briefly changes the tab color, but is being reset again since
         // Flask loads a new url/page per clicked tab
     </script>
+    -->
+
 </body>
 </html>

@@ -1,5 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif;
+    height: 100%;
 }
 
 .topnav {
@@ -100,3 +101,14 @@ td input {
     margin: 0 auto;
 }
 
+.container {
+    max-width: 960px;
+}
+
+td form {
+    display: inline-block;
+}
+
+.table-responsive {
+    max-height: 50%;
+}
