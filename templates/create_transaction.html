@@ -6,14 +6,15 @@
 <form action="{{ url_for('create_transaction', type=type) }}" method="post">
     <div class="row justify-content-center">
         <div class="col-6">
-            
-            {% if type == 'income' %}
-                <h3>New Income</h3>
-            {% elif type == 'expense' %}
-                <h3>New Expense</h3>
-            {% else %}
-                <h3>New Transfer</h3>
-            {% endif %}
+            <div class="py-3">
+                {% if type == 'income' %}
+                    <h3>New Income</h3>
+                {% elif type == 'expense' %}
+                    <h3>New Expense</h3>
+                {% else %}
+                    <h3>New Transfer</h3>
+                {% endif %}
+            </div>
             <div class="row g-3">
                 <div class="col-12">
                     <label for="account" class="form-label">Account</label>
