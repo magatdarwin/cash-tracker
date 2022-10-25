@@ -9,6 +9,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Balance</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -16,6 +17,7 @@
                 {% for owner in owners %}
                     <tr>
                         <td>{{ owner.first_name }} {{ owner.last_name }}</td>
+                        <td>{{ owner.balance | cash }}</td>
                         <td>
                             <form action="{{ url_for('edit_owner', owner_id=owner.id) }}", method="get">
                                 <button type="submit" class="btn btn-primary"><i class="bi bi-pencil-square"></i></button>

@@ -128,7 +128,12 @@ def create_owner():
 @app.route('/view_owners')
 @login_required
 def view_owners():
-    owners = cur.execute("SELECT * FROM owners WHERE user_id = ?", (session['user_id'],)).fetchall()
+    owners = cur.execute("""SELECT o.*, IFNULL(SUM(t.amount), 0) as balance
+                         FROM owners AS o
+                         INNER JOIN accounts as a ON a.owner_id = o.id
+                         INNER JOIN transactions as t ON t.account_id = a.id
+                         WHERE o.user_id = ?
+                         GROUP BY o.id""", (session['user_id'],)).fetchall()
 
     return render_template('view_owners.html', owners=owners)
 
@@ -179,7 +184,13 @@ def create_bank():
 @app.route('/view_banks')
 @login_required
 def view_banks():
-    banks = cur.execute("SELECT * FROM banks WHERE user_id = ?", (session['user_id'],)).fetchall()
+    banks = cur.execute("""SELECT b.*, IFNULL(SUM(t.amount), 0) AS balance
+                        FROM banks as b
+                        INNER JOIN accounts as a ON a.bank_id = b.id
+                        INNER JOIN transactions as t ON t.account_id = a.id 
+                        WHERE b.user_id = ?
+                        GROUP BY b.id
+                        ORDER BY b.name""", (session['user_id'],)).fetchall()
 
     return render_template('view_banks.html', banks=banks)
 
