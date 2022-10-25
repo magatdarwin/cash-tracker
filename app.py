@@ -131,7 +131,7 @@ def view_owners():
     owners = cur.execute("""SELECT o.*, IFNULL(SUM(t.amount), 0) as balance
                          FROM owners AS o
                          INNER JOIN accounts as a ON a.owner_id = o.id
-                         INNER JOIN transactions as t ON t.account_id = a.id
+                         LEFT JOIN transactions as t ON t.account_id = a.id
                          WHERE o.user_id = ?
                          GROUP BY o.id""", (session['user_id'],)).fetchall()
 
@@ -187,7 +187,7 @@ def view_banks():
     banks = cur.execute("""SELECT b.*, IFNULL(SUM(t.amount), 0) AS balance
                         FROM banks as b
                         INNER JOIN accounts as a ON a.bank_id = b.id
-                        INNER JOIN transactions as t ON t.account_id = a.id 
+                        LEFT JOIN transactions as t ON t.account_id = a.id 
                         WHERE b.user_id = ?
                         GROUP BY b.id
                         ORDER BY b.name""", (session['user_id'],)).fetchall()
